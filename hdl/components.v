@@ -11,7 +11,7 @@ module regfile #(parameter WIDTH=8) (input  wire clk,
 
   initial
   begin
-    $readmemb("C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/CPU/Pipeline/mem/regfile.mem",regb); // inicializa los registros a valores conocidos
+    $readmemb("C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/pipeline/mem/regfile.mem",regb); // inicializa los registros a valores conocidos
   end  
   
   // El registro 0 siempre es cero

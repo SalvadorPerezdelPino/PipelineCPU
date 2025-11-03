@@ -18,7 +18,7 @@ module data_memory #(
 	
 	assign bus_data = (read && selected) ? buffer[local_addr] : 16'bz;
 	
-	localparam path = "C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/CPU/Pipeline/mem/data.mem";
+	localparam path = "C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/pipeline/mem/data.mem";
 	
 	initial
 	begin

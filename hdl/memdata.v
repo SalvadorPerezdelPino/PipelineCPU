@@ -8,7 +8,7 @@ module memdata (
 	reg [15:0] buffer [2048:0];
 	assign data_out = buffer[address];
 	
-	localparam path = "C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/CPU/Pipeline/data.mem";
+	localparam path = "C:/Users/Usuario/Documents/clase/inf/TFG/FPGA/DE10/pipeline/data.mem";
 	
 	initial
 	begin
