@@ -34,8 +34,8 @@ module tb_cpu;
 		.pc    		(pc),
 		.bus_addr	(bus_addr),
 		.bus_data	(bus_data),
-		.read			(read),
-		.write		(write),
+		.mem_read			(read),
+		.mem_write		(write),
 		.halted		(halted),
 		.solution	(hw_solution)
 	);
