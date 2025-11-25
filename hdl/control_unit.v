@@ -1,6 +1,6 @@
 module control_unit (
 	input wire [5:0] opcode, 
-	input wire z, s,
+	input wire zero, sign, carry, overflow,
 	input wire clk,
 	input wire reset,
 	input wire stall,
@@ -20,8 +20,9 @@ module control_unit (
 	parameter HALT = 6'b000001;
 	parameter ALU = 6'b111???;
 	parameter J = 6'b110000;
-	parameter JPOS = 6'b110001;
-	parameter JAL = 6'b11010?;
+	parameter JG = 6'b110001;
+	parameter JG_S = 6'b110100;
+	parameter JAL = 6'b110101;
 	parameter JR = 6'b11011?;
 	parameter JZ = 6'b110011;
 	parameter JNZ = 6'b110010;
@@ -100,43 +101,56 @@ module control_unit (
 					flush_if <= 1'b1;
 				end
 				
-				JPOS: begin // JPOS
+				JG: begin // JG
 					s_wd3 <= 2'b00;
 					s_mem_in <= 1'b0;
 					s_addr <= 1'b0;
-					s_pc <= ~s && ~z; // PROBAR CON AMBOS
+					s_pc <= ~sign && ~zero; // PROBAR CON AMBOS
 					we3 <= 1'b0;
 					we_flags <= 1'b0;
 					op_alu <= 3'b000; //don't care
 					read <= 1'b0;
 					write <= 1'b0;
-					flush_if <= ~s && ~z;
+					flush_if <= ~sign && ~zero;
+				end
+				
+				JG_S: begin // JG
+					s_wd3 <= 2'b00;
+					s_mem_in <= 1'b0;
+					s_addr <= 1'b0;
+					s_pc <= ~(sign ^ overflow) && ~zero; // PROBAR CON AMBOS
+					we3 <= 1'b0;
+					we_flags <= 1'b0;
+					op_alu <= 3'b000; //don't care
+					read <= 1'b0;
+					write <= 1'b0;
+					flush_if <= ~(sign ^ overflow) && ~zero;
 				end
 				
 				JZ: begin // JZ
 					s_wd3 <= 2'b00;
 					s_mem_in <= 1'b0;
 					s_addr <= 1'b0;
-					s_pc <= z;
+					s_pc <= zero;
 					we3 <= 1'b0;
 					we_flags <= 1'b0;
 					op_alu <= 3'b000; //don't care
 					read <= 1'b0;
 					write <= 1'b0;
-					flush_if <= z;
+					flush_if <= zero;
 				end
 				
 				JNZ: begin // JNZ
 					s_wd3 <= 2'b00;
 					s_mem_in <= 1'b0;
 					s_addr <= 1'b0;
-					s_pc <= ~z;
+					s_pc <= ~zero;
 					we3 <= 1'b0;
 					we_flags <= 1'b0;
 					op_alu <= 3'b000; // don't care
 					read <= 1'b0;
 					write <= 1'b0;
-					flush_if <= ~z;
+					flush_if <= ~zero;
 				end
 				
 				LI: begin // LDI

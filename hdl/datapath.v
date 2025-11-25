@@ -1,7 +1,8 @@
 // Camino de datos de la CPU
 module datapath #(
 	parameter DATA_WIDTH = 16,
-	parameter ADDR_WIDTH = 8) (
+	parameter ADDR_WIDTH = 8
+	) (
 	input wire clk, 
 	input wire reset,
 	input wire enable_pc, enable_if,
@@ -11,16 +12,16 @@ module datapath #(
 	input wire read, write, flush_if,
 	output wire [9:0] pc,
 	output wire [5:0] opcode,
-	output wire z, s, 
+	output wire zero, sign, carry, overflow, 
 	output wire mem_read, mem_write,
 	output wire [19:0] bus_addr,
 	output wire [15:0] bus_data,
 	output wire stall
 	);
 	
+	wire z_alu, s_alu, c_alu, o_alu;
 	wire [9:0] next_pc, inc_pc, jmp_pc;
 	wire [31:0] instruction;
-	wire zero, sign;
 	
 	wire [3:0] dr_ra1, dr_ra2, dr_wa3, ex_wa3, mem_wa3, wb_wa3;
 	wire [15:0] dr_rd1, dr_rd2, ex_rd1, ex_rd2, mem_rd1, mem_rd2, mem_wd3, wb_wd3;
@@ -153,24 +154,42 @@ module datapath #(
 		.b			(ex_rd2),
 		.op_alu	(ex_op_alu),
 		.y			(ex_alu_res),
-		.zero		(zero),
-		.sign		(sign)
+		.zero		(z_alu),
+		.sign		(s_alu),
+		.carry	(c_alu),
+		.overflow(o_alu)
 	);
 	
 	ffd flag_zero (
 		.clk		(clk),
 		.reset	(reset),
-		.d			(zero),
+		.d			(z_alu),
 		.carga	(ex_we_flags),
-		.q			(z)
+		.q			(zero)
 	);
 	
 	ffd flag_sign (
 		.clk		(clk),
 		.reset	(reset),
-		.d			(sign),
+		.d			(s_alu),
 		.carga	(ex_we_flags),
-		.q			(s)
+		.q			(sign)
+	);
+	
+	ffd flag_carry (
+		.clk		(clk),
+		.reset	(reset),
+		.d			(c_alu),
+		.carga	(ex_we_flags),
+		.q			(carry)
+	);
+	
+	ffd flag_overflow (
+		.clk		(clk),
+		.reset	(reset),
+		.d			(o_alu),
+		.carga	(ex_we_flags),
+		.q			(overflow)
 	);
 	
 	ex_mem ex_mem0 (

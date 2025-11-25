@@ -12,7 +12,7 @@ module cpu #(
 	output wire halted
 );
 	 
-	wire z, s;
+	wire zero, sign, carry, overflow;
 	wire s_addr, s_pc;
 	wire [1:0] s_wd3, dr_s_wd3, ex_s_wd3;
 	wire we3, we_flags, we_alu, we_reg, we_next_pc, we_rmem, we_wd3;
@@ -25,8 +25,10 @@ module cpu #(
 	
 	control_unit cu1 (
 		.opcode 		(opcode), 
-	   .z      		(z),
-		.s				(s),
+	   .zero      	(zero),
+		.sign			(sign),
+		.carry		(carry),
+		.overflow	(overflow),
 		.clk			(clk),
 		.reset		(reset),
 	   .we3    		(we3), 
@@ -63,8 +65,10 @@ module cpu #(
 		.s_pc			(s_pc),
 		.we3			(we3),
 		.we_flags	(we_flags),
-		.z				(z),
-		.s				(s),
+		.zero			(zero),
+		.sign			(sign),
+		.carry		(carry),
+		.overflow	(overflow),
 		.read			(read),
 		.write		(write),
 		.mem_read	(mem_read),

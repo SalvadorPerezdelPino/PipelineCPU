@@ -37,7 +37,7 @@ module DE10(
 	
 	data_memory #(
 		.START_ADDRESS(MEM_ADDR),
-		.SIZE(2048))
+		.SIZE(1024))
 	mem1 (
 		.bus_data	(bus_data),
 		.bus_addr	(bus_addr),
