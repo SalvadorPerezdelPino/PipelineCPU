@@ -34,8 +34,8 @@ module tb_cpu;
 		.pc    		(pc),
 		.bus_addr	(bus_addr),
 		.bus_data	(bus_data),
-		.mem_read			(read),
-		.mem_write		(write),
+		.mem_read	(read),
+		.mem_write	(write),
 		.halted		(halted),
 		.solution	(hw_solution)
 	);
@@ -129,7 +129,7 @@ module tb_cpu;
 
 		if (expected_solution == hw_solution) begin
 			$fdisplay(csv_fd, "test_id;expected_solution;hw_solution;cycles;instructions;cpi;memory_reads;memory_writes");
-			$display("Knapsack is CORRECT");
+			$display("Problem is CORRECT");
 			$display("Total cycles: %d", cycles);
 			$display("Total memory reads: %d", mem_reads);
 			$display("Total memory writes: %d", mem_writes);
@@ -140,7 +140,7 @@ module tb_cpu;
 					expected_solution, hw_solution, cycles, instructions, $rtoi(cpi), $rtoi((cpi - $rtoi(cpi)) * 10000), mem_reads, mem_writes);
 		end
 		else begin
-			$display("Knapsack FAILED");
+			$display("Problem FAILED");
 			$display("Expected solution: %d", expected_solution);
 			$display("Hardware solution: %d\n", hw_solution);
 			$display("Total cycles: %d", cycles);
