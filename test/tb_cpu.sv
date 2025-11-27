@@ -1,17 +1,13 @@
 `timescale 1 ns / 10 ps
 
 module tb_cpu;
-	reg clk;
+	reg clk, clk_bram;
 	reg reset;
 	wire [9:0] pc;
 	reg [9:0] old_pc;
 	
-	always begin
-		clk = 1'b1;
-		#10;
-		clk = 1'b0;
-		#10;
-	end
+	always #10 clk = ~clk;
+	always #5 clk_bram = ~clk_bram;
 	
 	
 	localparam ADDR_WIDTH = 20;
@@ -40,7 +36,7 @@ module tb_cpu;
 		.solution	(hw_solution)
 	);
 	
-	data_memory #(
+	/*data_memory #(
 		.START_ADDRESS(MEM_ADDR),
 		.SIZE(1024))
 	mem1 (
@@ -49,6 +45,19 @@ module tb_cpu;
 		.write		(write),
 		.read			(read),
 		.clk			(clk)
+	);*/
+	
+	wire [DATA_WIDTH-1:0] ram_in = bus_data;
+	wire [DATA_WIDTH-1:0] ram_out;
+	assign bus_data = (read) ? ram_out : {DATA_WIDTH{1'bz}};
+	
+	single_port_ram mem1 (
+		.address	(bus_addr),
+		.clock	(clk_bram),
+		.data		(ram_in),
+		.rden		(read),
+		.wren		(write),
+		.q			(ram_out)
 	);
 
 	reg [DATA_WIDTH-1:0] expected_solution;
@@ -93,6 +102,8 @@ module tb_cpu;
 		$display("Test ID: %0d", id);
 		
 		// Start values
+		clk = 1;
+		clk_bram = 1;
 		cycles = 0;
 		mem_reads = 0;
 		mem_writes = 0;

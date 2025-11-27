@@ -11,12 +11,13 @@ module DE10(
 	wire [DATA_WIDTH-1:0] bus_data;
 	wire [ADDR_WIDTH-1:0] bus_addr;
 	wire read, write;
-	wire clk;
+	wire clk, clk_bram;
 	
 	pll pll1 (
 		.refclk	 (CLOCK_50),
 		.rst		 (~KEY[0]),
-		.outclk_0 (clk)
+		.outclk_0 (clk),
+		.outclk_1 (clk_bram)
 	);
 	
 	cpu #(
@@ -35,7 +36,7 @@ module DE10(
 		.solution	(LEDR)
 	);
 	
-	data_memory #(
+	/*data_memory #(
 		.START_ADDRESS(MEM_ADDR),
 		.SIZE(1024))
 	mem1 (
@@ -44,6 +45,19 @@ module DE10(
 		.write		(write),
 		.read			(read),
 		.clk			(clk)
+	);*/
+	
+	wire [DATA_WIDTH-1:0] ram_in = bus_data;
+	wire [DATA_WIDTH-1:0] ram_out;
+	assign bus_data = (read) ? ram_out : {DATA_WIDTH{1'bz}};
+	
+	single_port_ram mem1 (
+		.address	(bus_addr),
+		.clock	(clk_bram),
+		.data		(ram_in),
+		.rden		(read),
+		.wren		(write),
+		.q			(ram_out)
 	);
 	
 endmodule

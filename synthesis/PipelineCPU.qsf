@@ -66,24 +66,7 @@ set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb_cpu
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb_cpu -section_id tb_cpu
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name NUM_PARALLEL_PROCESSORS 14
-set_global_assignment -name EDA_TEST_BENCH_FILE alu.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE cd_io.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE components.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE control_unit.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE cpu.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE data.mem -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE data_memory.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE datapath.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE memory.mem -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE pll.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE program.mem -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE program_memory.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE regfile.mem -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE solution.mem -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE stack.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE stages.v -section_id tb_cpu
-set_global_assignment -name EDA_TEST_BENCH_FILE tb_cpu.sv -section_id tb_cpu
-set_global_assignment -name VERILOG_FILE ../ip/pll/pll.v
+set_global_assignment -name VERILOG_FILE ../hdl/single_port_ram.v
 set_global_assignment -name QIP_FILE ../ip/pll/pll.qip
 set_global_assignment -name SOURCE_FILE ../ip/pll/pll.cmp
 set_global_assignment -name VERILOG_FILE ../hdl/stages.v
@@ -98,4 +81,26 @@ set_global_assignment -name VERILOG_FILE ../hdl/control_unit.v
 set_global_assignment -name VERILOG_FILE ../hdl/components.v
 set_global_assignment -name VERILOG_FILE ../hdl/cd_io.v
 set_global_assignment -name VERILOG_FILE ../hdl/alu.v
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/alu.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/alu.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/cd_io.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/components.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/components.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/control_unit.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/control_unit.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/cpu.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/cpu.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/data_memory.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/data_memory.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/datapath.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/datapath.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/DE10.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/DE10.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/memdata.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/memdata.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/program_memory.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/program_memory.v.bak -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/single_port_ram.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/stack.v -section_id tb_cpu
+set_global_assignment -name EDA_TEST_BENCH_FILE ../hdl/stages.v -section_id tb_cpu
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
